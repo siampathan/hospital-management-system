@@ -9,11 +9,9 @@ const expressValidator = require("express-validator");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const mongo = require("mongodb");
 const PORT = 8000;
-const app = express();
 
+var app = express();
 app.use(express.static(__dirname + "/views"));
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(favicon(__dirname + "/public/favicon.ico"));
@@ -70,7 +68,6 @@ app.use("/app", (req, res, next) => {
   }
 });
 
-/* routes sections */
 const login = require("./routes/login");
 const users = require("./routes/users");
 const appRoute = require("./routes/app");
@@ -87,7 +84,16 @@ app.use("/", settings);
 app.use("/", diseases);
 app.use("/", rooms);
 
-app.set("port", process.env.PORT || 3000);
+//var timestamp = new Date().getTime();
+
+app.set("port", process.env.PORT || PORT);
 app.listen(app.get("port"), function () {
   console.log("Server started on port " + app.get("port"));
 });
+
+const mongoose = require("mongoose");
+
+mongoose.Promise = global.Promise;
+
+mongoose.set("strictQuery", false);
+mongoose.connect("mongodb://127.0.0.1:27017/hospitaldb");
