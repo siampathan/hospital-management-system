@@ -70,6 +70,15 @@ app.use("/app", (req, res, next) => {
   }
 });
 
+/* routes sections */
+const login = require("./routes/login");
+const users = require("./routes/users");
+const appRoute = require("./routes/app");
+const patients = require("./routes/patients");
+const settings = require("./routes/settings");
+const diseases = require("./routes/diseases");
+const rooms = require("./routes/rooms");
+
 app.use("/", login);
 app.use("/", appRoute);
 app.use("/", users);
